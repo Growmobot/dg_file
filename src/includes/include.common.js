@@ -49,25 +49,21 @@ dg_file.loaded = function(file, uri, fileInputId) {
     fileInput.hideInput();
     fileInput.setMessage(dg.t('Uploading') + '...');
 
-    // Save the file to Drupal...
-    // @TODO this is specific to Drupal 7, add Drupal 8 support too!
-    file_save(fileData, {
-      success: function(result) {
-        console.log('file_save', result);
-        if (result.fid) {
-
-          // Set the file id onto the input form element.
-          dg.qs('#' + formInputId).value = result.fid;
-
-          // Clear out the message and preview the image.
-          fileInput.clearMessage();
-          fileInput.setPreview(uri);
-
-        }
-        else { dg.error(null, null, dg.t('There was a problem saving the file.')); }
+    jQuery.ajax({
+      type: "POST",
+      url: jDrupal.settings.basePath + "/save-image",
+      data: {
+        image: fileData.file,
+        name: fileData.filename
       },
-      error: function (xhr, status, msg) { fileInput.setMessage(msg, 'error'); }
-    });
+      success: function(response){
+        fileInput.clearMessage();
+        fileInput.setPreview(jDrupal.settings.basePath + "/sites/default/files/" + fileData.fileName);
+        document.getElementById('dg-file-form-messages').classList.add(response[0].data)
+        }
+      }
+    );
+
 
   }; // step 2
 
