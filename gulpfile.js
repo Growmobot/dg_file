@@ -14,7 +14,7 @@ var dgFileModuleSrc = [
 // Task to build the dg_file.min.js file.
 gulp.task('minifyJS', function(){
   return gulp.src(dgFileModuleSrc)
-      .pipe(gp_concat('concat.js'))
+      .pipe(gp_concat('dg_file.js'))
       .pipe(gulp.dest(''))
       .pipe(gp_rename('dg_file.min.js'))
       .pipe(gp_uglify())

@@ -15,20 +15,20 @@ dg.theme_file_input = function(variables) {
 
 //dg_file.chooseFileOnchange = function(wrapperId, inputId, previewId, formInputId) { // web-app only...
 dg_file.chooseFileOnchange = function(fileInputId) { // web-app only...
-  console.log('chooseFileOnchange', arguments);
+  //console.log('chooseFileOnchange', arguments);
 
   // Load up the file input's variables.
   var fileInput = dg_file.getFileInput(fileInputId);
-  console.log('fileInput', fileInput);
+  //console.log('fileInput', fileInput);
 
   var input = fileInput.getInput();
-  console.log('input', input);
+  //console.log('input', input);
 
   // Grab the file from the file input element.
   //var file = document.querySelector('#' + inputId).files[0];
   var file = input.files[0];
   if (!file) { return; }
-  console.log('file input', file);
+  //console.log('file input', file);
 
   // Init a file reader.
   var reader = new FileReader();
@@ -49,8 +49,8 @@ dg_file.chooseFileOnchange = function(fileInputId) { // web-app only...
 };
 
 
-dg_file.openFilePicker = function(button, previewId, formInputId) { // compiled app only...
-  console.log('openFilePicker', arguments);
+dg_file.openFilePicker = function(id) { // compiled app only...
+  //console.log('openFilePicker', arguments);
 
   var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
   var options = dg_file.setOptions(srcType);
@@ -59,13 +59,13 @@ dg_file.openFilePicker = function(button, previewId, formInputId) { // compiled 
     window.resolveLocalFileSystemURI(imageUri,
         function(fileEntry) {
 
-          console.log(fileEntry.fullPath);
-          console.log(fileEntry);
+          //console.log(fileEntry.fullPath);
+          //console.log(fileEntry);
 
           // The file has been loaded...
           fileEntry.file(function(file) {
 
-            dg_file.loaded(file, imageUri, button.getAttribute('id'), previewId, formInputId);
+            dg_file.loaded(file, imageUri, id);
 
           });
 

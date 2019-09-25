@@ -1,11 +1,11 @@
 /**
- *
+ * Themes a file input element and widget.
  * @param variables
  *    _filePathDir {String} the folder in the file system to save the file in, e.g. "articles/images"
  * @returns {string}
  */
 dg.theme_file = function(variables) {
-  console.log('theme_file', variables);
+  //console.log('theme_file', variables);
   var attrs = variables._attributes;
 
   // Make sure we have an id for the widget.
