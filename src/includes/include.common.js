@@ -6,7 +6,7 @@
  * @param fileInputId {string} The id of the DgFileInput
  */
 dg_file.loaded = function(file, uri, fileInputId) {
-  console.log('loaded()', file);
+  //console.log('loaded()', file);
 
   var isCompiled = dg.isCompiled();
   var fileInput = dg_file.getFileInput(fileInputId);
@@ -32,7 +32,7 @@ dg_file.loaded = function(file, uri, fileInputId) {
     var fileName = file.name;
 
     // Build the file path.
-    var filePath = "public://";
+    var filePath = "private://";
     var dir = widgetVariables._filePathDir;
     if (dir) { filePath += dir + '/'; }
     filePath += fileName;
@@ -52,15 +52,16 @@ dg_file.loaded = function(file, uri, fileInputId) {
     // Zak custom for growmobot.
     jQuery.ajax({
       type: "POST",
-      url: jDrupal.settings.basePath + "/save-image",
+      url: jDrupal.settings.sitePath + "/save-image",
       data: {
         image: fileData.file,
         name: fileData.filename
       },
       success: function(response){
+        //console.log(filePath);
         fileInput.clearMessage();
-        fileInput.setPreview(jDrupal.settings.basePath + "/sites/default/files/" + fileData.fileName);
-        document.getElementById('dg-file-form-messages').classList.add(response[0].data)
+        fileInput.setPreview(uri);
+        document.getElementById('dg-file-form-messages').classList.add(response[0].data);
         }
       }
     );
