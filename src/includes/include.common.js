@@ -8,6 +8,10 @@
 dg_file.loaded = function(file, uri, fileInputId) {
   //console.log('loaded()', file);
 
+  // Zak custom for growmobot.
+  // Temp disable the save button.
+  document.getElementById('edit-submit').setAttribute('disabled', 'disabled');
+
   var isCompiled = dg.isCompiled();
   var fileInput = dg_file.getFileInput(fileInputId);
   var formInputId = fileInput.getFormInputId();
@@ -50,6 +54,7 @@ dg_file.loaded = function(file, uri, fileInputId) {
     fileInput.setMessage(dg.t('Uploading') + '...');
 
     // Zak custom for growmobot.
+    // AJAX upload of image to backend.
     jQuery.ajax({
       type: "POST",
       url: jDrupal.settings.sitePath + "/save-image",
@@ -62,6 +67,8 @@ dg_file.loaded = function(file, uri, fileInputId) {
         fileInput.clearMessage();
         fileInput.setPreview(uri);
         document.getElementById('dg-file-form-messages').classList.add(response[0].data);
+        // Re-enable save button.
+        document.getElementById('edit-submit').removeAttribute('disabled');
         }
       }
     );
